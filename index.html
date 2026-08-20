@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Rahil Shah — Portfolio.xlsx</title>
+<meta name="description" content="Rahil Shah — Data Science &amp; Economics, Plaksha University">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CONTENT LIVES IN JAVASCRIPT — SEE THE "CONTENT" OBJECT
+   NEAR THE BOTTOM OF THIS FILE. EDIT TEXT THERE, NOT HERE.
+   ========================================================= */
+:root{
+  --xl-green:#107C41;
+  --xl-green-dark:#0B5D31;
+  --xl-green-darker:#083D21;
+  --grid:#D7DBDC;
+  --grid-soft:#E9ECEC;
+  --cell:#FFFFFF;
+  --header-bg:#F3F3F2;
+  --header-text:#5E6663;
+  --sel-fill:#E3F3EA;
+  --sel-border:#107C41;
+  --ink:#1B1E1C;
+  --ink-soft:#5B6560;
+  --formula-bg:#FBFBFA;
+  --highlight:#FFDD6B;
+  --sans:'Public Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --display:'Space Grotesk',var(--sans);
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:#DDE3E1;height:100%;}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+}
+.app{
+  width:100%;
+  max-width:460px;
+  min-height:100vh;
+  min-height:100dvh;
+  background:var(--cell);
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 0 40px rgba(0,0,0,.18);
+  position:relative;
+  overflow:hidden;
+}
+
+/* ---------- Title bar ---------- */
+.titlebar{
+  background:var(--xl-green);
+  color:#fff;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.02em;
+}
+.titlebar .mark{
+  width:18px;height:18px;border-radius:4px;
+  background:#fff;color:var(--xl-green);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-weight:700;font-size:11px;
+  flex:none;
+}
+.titlebar .fname{opacity:.95;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.titlebar .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55);margin-left:auto;}
+.titlebar .dot:nth-of-type(2){background:rgba(255,255,255,.35);}
+
+/* ---------- Ribbon ---------- */
+.ribbon-tabs{
+  display:flex;
+  gap:2px;
+  padding:6px 10px 0 10px;
+  background:var(--xl-green-dark);
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.ribbon-tabs::-webkit-scrollbar{display:none;}
+.ribbon-tabs button{
+  font-family:var(--sans);
+  font-size:11.5px;
+  font-weight:600;
+  color:rgba(255,255,255,.7);
+  background:transparent;
+  border:none;
+  padding:7px 10px 8px;
+  border-radius:4px 4px 0 0;
+  white-space:nowrap;
+}
+.ribbon-tabs button.active{
+  background:var(--cell);
+  color:var(--xl-green-dark);
+}
+.ribbon-strip{
+  background:var(--cell);
+  border-bottom:1px solid var(--grid);
+  padding:8px 12px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.ribbon-strip::-webkit-scrollbar{display:none;}
+.ribbon-icon{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:9px;color:var(--ink-soft);flex:none;
+  font-weight:500;
+}
+.ribbon-icon .glyph{
+  width:26px;height:22px;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:12px;color:var(--ink);
+  background:var(--grid-soft);
+}
+
+/* ---------- Formula bar ---------- */
+.formula-row{
+  display:flex;align-items:center;
+  border-bottom:1px solid var(--grid);
+  background:var(--formula-bg);
+  font-family:var(--mono);
+  font-size:12px;
+}
+.name-box{
+  width:56px;flex:none;
+  padding:7px 8px;
+  border-right:1px solid var(--grid);
+  color:var(--xl-green-dark);
+  font-weight:600;
+}
+.fx{
+  width:26px;flex:none;text-align:center;
+  color:var(--ink-soft);font-style:italic;font-size:12px;
+  border-right:1px solid var(--grid);
+  padding:7px 0;
+}
+.formula-text{
+  padding:7px 10px;
+  color:var(--ink);
+  white-space:nowrap;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.formula-text::-webkit-scrollbar{display:none;}
+
+/* ---------- Column header row (decorative) ---------- */
+.colheader{
+  display:flex;
+  background:var(--header-bg);
+  border-bottom:1px solid var(--grid);
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--header-text);
+}
+.colheader .rowcorner{width:26px;flex:none;border-right:1px solid var(--grid);}
+.colheader .col{
+  flex:1;text-align:center;padding:4px 0;
+  border-right:1px solid var(--grid);
+}
+.colheader .col.active{background:var(--sel-fill);color:var(--xl-green-dark);font-weight:600;}
+
+/* ---------- Sheet viewport ---------- */
+.viewport{flex:1;overflow-y:auto;display:flex;background:var(--cell);}
+.rowgutter{
+  width:26px;flex:none;
+  background:var(--header-bg);
+  border-right:1px solid var(--grid);
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--header-text);
+}
+.rowgutter div{
+  height:var(--rh,auto);
+  padding-top:10px;
+  text-align:center;
+  border-bottom:1px solid var(--grid-soft);
+}
+.sheets{flex:1;min-width:0;}
+.sheet{display:none;padding:2px 0 90px;}
+.sheet.active{display:block;}
+
+.row{
+  display:flex;
+  border-bottom:1px solid var(--grid-soft);
+}
+.row.spacer{border-bottom:1px solid var(--grid-soft);}
+.cell{
+  flex:1;min-width:0;
+  padding:10px 12px;
+  border-right:1px solid var(--grid-soft);
+}
+.cell:last-child{border-right:none;}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--xl-green-dark);
+  background:var(--sel-fill);
+  display:inline-block;
+  padding:2px 6px;
+  border-radius:3px;
+  margin-bottom:6px;
+}
+h1.name{
+  font-family:var(--display);
+  font-size:26px;
+  font-weight:700;
+  margin:2px 0 2px;
+  line-height:1.05;
+}
+.role{
+  font-family:var(--sans);
+  font-size:13px;
+  color:var(--ink-soft);
+  margin-bottom:10px;
+}
+.contact-grid{display:flex;flex-direction:column;gap:5px;margin-top:8px;}
+.contact-grid a, .contact-grid span{
+  font-family:var(--mono);font-size:11.5px;color:var(--ink);
+  text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+}
+.contact-grid a .k, .contact-grid span .k{
+  color:var(--header-text);width:16px;flex:none;text-align:center;
+}
+.contact-grid a:hover{color:var(--xl-green-dark);text-decoration:underline;}
+
+.summary-cell{
+  font-size:13.5px;
+  line-height:1.55;
+  color:var(--ink);
+}
+.stat-strip{display:flex;gap:0;margin-top:2px;}
+.stat{
+  flex:1;padding:10px 8px;text-align:center;border-right:1px solid var(--grid-soft);
+}
+.stat:last-child{border-right:none;}
+.stat b{
+  display:block;font-family:var(--display);font-size:17px;color:var(--xl-green-dark);
+}
+.stat span{font-size:9.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;}
+
+.entry{padding:12px;}
+.entry-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:2px;}
+.entry-title{font-family:var(--display);font-weight:600;font-size:14.5px;}
+.entry-org{font-size:12px;color:var(--xl-green-dark);font-weight:600;margin-bottom:2px;}
+.entry-date{font-family:var(--mono);font-size:10px;color:var(--ink-soft);white-space:nowrap;flex:none;background:var(--grid-soft);padding:2px 6px;border-radius:3px;}
+.entry ul{margin:6px 0 0;padding-left:16px;}
+.entry li{font-size:12.5px;line-height:1.5;margin-bottom:4px;}
+.entry li b{color:var(--ink);background:linear-gradient(transparent 60%, var(--highlight) 60%);font-weight:600;}
+.tagrow{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.tag{
+  font-family:var(--mono);font-size:10px;
+  background:var(--header-bg);color:var(--ink-soft);
+  border:1px solid var(--grid);
+  padding:2px 6px;border-radius:3px;
+}
+
+.skill-block{padding:12px;}
+.skill-block h3{
+  font-family:var(--mono);font-size:11px;letter-spacing:.03em;
+  color:var(--xl-green-dark);text-transform:uppercase;margin:0 0 8px;
+}
+.skill-block .tagrow{margin-top:0;}
+
+.ach-cell{padding:12px;display:flex;gap:10px;}
+.ach-cell .cellref{
+  font-family:var(--mono);font-size:9.5px;color:var(--header-text);
+  flex:none;padding-top:1px;
+}
+.ach-cell .txt{font-size:12.5px;line-height:1.5;}
+.ach-cell .txt b{color:var(--ink);background:linear-gradient(transparent 60%, var(--highlight) 60%);font-weight:600;}
+
+.dl-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin:14px 12px 0;
+  background:var(--xl-green);color:#fff;
+  font-family:var(--sans);font-weight:600;font-size:13px;
+  padding:11px;border-radius:5px;border:none;
+  text-decoration:none;
+}
+.dl-btn:active{background:var(--xl-green-dark);}
+
+/* ---------- Sheet tab bar ---------- */
+.tabbar{
+  display:flex;align-items:flex-end;
+  background:var(--header-bg);
+  border-top:1px solid var(--grid);
+  overflow-x:auto;
+  scrollbar-width:none;
+  flex:none;
+  padding:6px 4px 0;
+}
+.tabbar::-webkit-scrollbar{display:none;}
+.tab{
+  font-family:var(--sans);font-size:11.5px;font-weight:600;
+  color:var(--ink-soft);
+  background:var(--grid-soft);
+  border:1px solid var(--grid);
+  border-bottom:none;
+  padding:7px 12px;
+  border-radius:5px 5px 0 0;
+  margin-right:2px;
+  white-space:nowrap;
+  flex:none;
+}
+.tab.active{
+  background:var(--cell);
+  color:var(--xl-green-dark);
+  border-bottom:2px solid var(--cell);
+  box-shadow:0 -2px 0 var(--xl-green) inset;
+}
+.tab-add{
+  flex:none;width:28px;height:28px;
+  border:1px solid var(--grid);border-bottom:none;
+  border-radius:5px 5px 0 0;
+  background:var(--grid-soft);color:var(--ink-soft);
+  font-size:15px;line-height:1;
+  margin-bottom:0;
+}
+
+/* ---------- Edit mode ---------- */
+.edit-fab{
+  position:absolute;right:14px;bottom:52px;
+  width:42px;height:42px;border-radius:50%;
+  background:var(--xl-green);color:#fff;border:none;
+  font-size:16px;box-shadow:0 3px 10px rgba(0,0,0,.25);
+  z-index:5;
+}
+.edit-fab.on{background:#B3541E;}
+.edit-banner{
+  display:none;
+  font-family:var(--mono);font-size:10.5px;
+  background:#FFF4DC;color:#7A5300;
+  border-bottom:1px solid #F0D999;
+  padding:6px 12px;
+}
+.app.editing .edit-banner{display:block;}
+.app.editing [contenteditable="true"]{
+  outline:1px dashed #B3541E;
+  outline-offset:2px;
+  background:#FFFBF2;
+}
+
+@media (max-width:360px){
+  h1.name{font-size:22px;}
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+  <div class="titlebar">
+    <div class="mark">RS</div>
+    <div class="fname" id="titleFile">RahilShah_Portfolio.xlsx</div>
+    <div class="dot"></div><div class="dot"></div>
+  </div>
+
+  <div class="ribbon-tabs" id="ribbonTabs">
+    <button class="active">Home</button>
+    <button>Insert</button>
+    <button>Formulas</button>
+    <button>Review</button>
+    <button>View</button>
+  </div>
+  <div class="ribbon-strip">
+    <div class="ribbon-icon"><div class="glyph">B</div>Bold</div>
+    <div class="ribbon-icon"><div class="glyph">%</div>Format</div>
+    <div class="ribbon-icon"><div class="glyph">Σ</div>AutoSum</div>
+    <div class="ribbon-icon"><div class="glyph">⇩</div>Sort</div>
+    <div class="ribbon-icon"><div class="glyph">⛶</div>Merge</div>
+  </div>
+
+  <div class="edit-banner">✎ Edit mode — click any text to change it. Changes preview here only; update the CONTENT object in the file's source to save them for real.</div>
+
+  <div class="formula-row">
+    <div class="name-box" id="cellRef">A1</div>
+    <div class="fx">fx</div>
+    <div class="formula-text" id="formulaText">=ABOUT!SUMMARY</div>
+  </div>
+
+  <div class="colheader" id="colheader">
+    <div class="rowcorner"></div>
+    <div class="col active">A</div>
+    <div class="col">B</div>
+    <div class="col">C</div>
+    <div class="col">D</div>
+  </div>
+
+  <div class="viewport">
+    <div class="rowgutter" id="rowgutter"></div>
+    <div class="sheets" id="sheets"></div>
+  </div>
+
+  <div class="tabbar" id="tabbar"></div>
+  <button class="edit-fab" id="editToggle" title="Toggle edit mode">✎</button>
+</div>
+
+<script>
+/* =========================================================================
+   EDIT YOUR CONTENT HERE. This single object drives the whole site —
+   change the text below and the page updates. No HTML/CSS editing needed
+   for normal updates. Re-order array items to change display order.
+   ========================================================================= */
+const CONTENT = {
+  name: "Rahil Shah",
+  role: "Data Science, Business &amp; Economics — Plaksha University",
+  email: "rahil.shah.ug24@plaksha.edu.in",
+  phone: "+91 9830588355",
+  linkedin: "#", // paste your LinkedIn URL here
+  github: "#",   // paste your GitHub URL here
+  resumePdf: "Rahil_Shah_Resume.pdf", // filename of resume PDF placed alongside this file
+
+  summary: "Data Science &amp; Economics student at Plaksha University building at the intersection of finance, ML, and civic tech — from an early-warning risk system across 170 NBFCs to an AI-powered municipal reporting platform.",
+
+  stats: [
+    { n: "9.12", l: "CGPA" },
+    { n: "Top 5%", l: "Dean's List" },
+    { n: "3", l: "Research Projects" }
+  ],
+
+  education: [
+    { title: "BTech, Data Science, Business &amp; Economics", org: "Plaksha University, Mohali", date: "2024 – Present", detail: "CGPA 9.12" },
+    { title: "12th, CISCE", org: "Sri Sri Academy, Kolkata", date: "2024", detail: "95%" },
+    { title: "10th, CISCE", org: "Sri Sri Academy, Kolkata", date: "2022", detail: "97.8%" }
+  ],
+
+  experience: [
+    {
+      title: "Risk Management Intern",
+      org: "Motilal Oswal",
+      date: "May – Jul 2026",
+      bullets: [
+        "Built an <b>Early Warning System</b> across 170 NBFCs in 5 lending verticals, enabling proactive risk detection.",
+        "Automated derivatives analysis with a Python-based NSE Option Workbench, cutting analysis time from 2.5 hours to <b>1 hour</b>.",
+        "Enabled faster spread construction using Black 76 pricing, supporting stress testing across <b>20 scenarios</b>."
+      ]
+    },
+    {
+      title: "Data Analyst Trainee",
+      org: "Buyogo Technologies India Pvt Ltd",
+      date: "May – Jul 2025",
+      bullets: [
+        "Built <b>6 Metabase dashboards</b> with 25+ KPIs across factory, mechanic, and date-level filters.",
+        "Built SQL-based inventory analyses integrating maintenance ticketing and stock data to improve visibility.",
+        "Designed a mechanic ranking system to benchmark performance and flag productivity bottlenecks."
+      ]
+    }
+  ],
+
+  projects: [
+    {
+      title: "CityConscience: AI Municipal Reporting Platform",
+      org: "Prof. Anupam Sobti & Dr. Siddharth",
+      date: "Apr 2026 – Present",
+      bullets: [
+        "Built an AI-powered civic platform for Mohali, validated via a <b>27-user pilot across 15 zones</b>.",
+        "Engineered a multimodal AI workflow (Gemini 2.5 Flash) automating complaint routing across 14 departments.",
+        "Layered in gamification and GenAI features to drive sustained citizen engagement."
+      ],
+      tags: ["Gemini 2.5", "Python", "Civic Tech"]
+    },
+    {
+      title: "Mutual Fund Volatility Prediction using Financial News Sentiment",
+      org: "Dr. Siddharth",
+      date: "May 2026",
+      bullets: [
+        "Built a volatility forecasting framework using news sentiment data across 19 equities.",
+        "Built an ML pipeline with 17 engineered features and rigorous leakage controls.",
+        "Benchmarked XGBoost against RiskMetrics EWMA — <b>10.89% higher forecasting accuracy</b>."
+      ],
+      tags: ["XGBoost", "NLP", "Risk"]
+    },
+    {
+      title: "COLE Optimizer Research Project",
+      org: "Dr. Ashish Kumar Pandey",
+      date: "Dec 2025",
+      bullets: [
+        "Built a novel optimizer to fix slow, unstable convergence in neural network training.",
+        "Engineered rolling-window plateau detection with patience-based learning-rate decay.",
+        "Benchmarked against Adam &amp; RMSprop — <b>95.9% accuracy</b> with greater consistency."
+      ],
+      tags: ["PyTorch", "Optimization"]
+    }
+  ],
+
+  positions: [
+    {
+      title: "Vice President",
+      org: "Entrepreneurship Cell, Plaksha University",
+      date: "Aug 2025 – Present",
+      bullets: [
+        "Planned Plaksha's first national-level entrepreneurship summit, Aeternum '25, for a <b>400+ participant</b> turnout.",
+        "Managed stakeholder coordination for Trifecta 2026, Plaksha's business conclave, across three club leaderships.",
+        "Led brand partnership talks with Crowwd and Finlatics, securing key E-Cell collaborations."
+      ]
+    },
+    {
+      title: "Member",
+      org: "Plaksha Consulting Club",
+      date: "Aug 2024 – Present",
+      bullets: [
+        "Represented the club in <b>8+ intercollegiate case competitions</b>.",
+        "Organized case competitions, casebooks, and interview workshops for members.",
+        "Drove the highest attendance recorded for a club event."
+      ]
+    }
+  ],
+
+  achievements: [
+    "<b>Dean's List (2024–25)</b> — ranked in the top 5% of the cohort by cumulative GPA.",
+    "Ranked <b>5th globally</b>, winning $2,500 in the Global Scaling Challenge (University of New Mexico) against 60+ teams from 25+ countries.",
+    "<b>1st Place</b>, Startup Showdown 2026 — national case competition hosted by Ashoka University, 50+ participants.",
+    "<b>1st Runner-Up</b>, Plaksha Inter-College Basketball Tournament (2025) — represented the university intercollegiately."
+  ],
+
+  skills: [
+    { cat: "Financial Analysis", items: ["Financial Statements", "Credit Risk", "Black-Scholes", "Fixed Income"] },
+    { cat: "Programming", items: ["Python (Pandas, NumPy)", "SQL"] },
+    { cat: "Data & BI", items: ["Excel", "Metabase"] }
+  ]
+};
+
+/* ========================= RENDERING — no need to edit below ========================= */
+const $sheets = document.getElementById('sheets');
+const $tabbar = document.getElementById('tabbar');
+const $rowgutter = document.getElementById('rowgutter');
+const $formulaText = document.getElementById('formulaText');
+const $cellRef = document.getElementById('cellRef');
+const $titleFile = document.getElementById('titleFile');
+
+$titleFile.textContent = CONTENT.name.replace(/\s+/g,'') + "_Portfolio.xlsx";
+
+function row(inner, cls=''){ return `<div class="row ${cls}">${inner}</div>`; }
+function cell(inner, cls=''){ return `<div class="cell ${cls}">${inner}</div>`; }
+
+function entryBlock(e){
+  return `<div class="entry">
+    <div class="entry-head">
+      <div>
+        <div class="entry-title">${e.title}</div>
+        <div class="entry-org">${e.org}</div>
+      </div>
+      <div class="entry-date">${e.date}</div>
+    </div>
+    <ul>${e.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+    ${e.tags ? `<div class="tagrow">${e.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>` : ''}
+  </div>`;
+}
+
+const SHEETS = [
+  {
+    id:'about', label:'About', formula:'=ABOUT!SUMMARY',
+    html: `
+      ${row(cell(`
+        <div class="eyebrow">A1 · Profile</div>
+        <h1 class="name" contenteditable="false">${CONTENT.name}</h1>
+        <div class="role" contenteditable="false">${CONTENT.role}</div>
+        <div class="contact-grid">
+          <a href="mailto:${CONTENT.email}"><span class="k">@</span>${CONTENT.email}</a>
+          <a href="tel:${CONTENT.phone.replace(/\s+/g,'')}"><span class="k">#</span>${CONTENT.phone}</a>
+          <a href="${CONTENT.linkedin}" target="_blank" rel="noopener"><span class="k">in</span>LinkedIn</a>
+          <a href="${CONTENT.github}" target="_blank" rel="noopener"><span class="k">gh</span>GitHub</a>
+        </div>
+      `))}
+      ${row(cell(`<div class="summary-cell" contenteditable="false">${CONTENT.summary}</div>`))}
+      ${row(`<div class="stat-strip">${CONTENT.stats.map(s=>`<div class="stat"><b>${s.n}</b><span>${s.l}</span></div>`).join('')}</div>`)}
+      ${row(cell(`<div class="eyebrow">Education</div>` + CONTENT.education.map(ed=>`
+        <div style="margin-bottom:8px;">
+          <div style="font-weight:600;font-size:12.5px;">${ed.title}</div>
+          <div style="font-size:11.5px;color:var(--ink-soft);">${ed.org} · ${ed.date} · ${ed.detail}</div>
+        </div>`).join('')))}
+      ${row(`<a class="dl-btn" href="${CONTENT.resumePdf}" download>⤓ Download résumé (PDF)</a>`, 'spacer')}
+    `
+  },
+  {
+    id:'experience', label:'Experience', formula:'=EXPERIENCE!IMPACT',
+    html: CONTENT.experience.map(e=>row(cell(entryBlock(e)))).join('')
+  },
+  {
+    id:'projects', label:'Projects', formula:'=PROJECTS!SCOPE',
+    html: CONTENT.projects.map(e=>row(cell(entryBlock(e)))).join('')
+  },
+  {
+    id:'leadership', label:'Leadership', formula:'=LEADERSHIP!SCALE',
+    html: CONTENT.positions.map(e=>row(cell(entryBlock(e)))).join('')
+  },
+  {
+    id:'achievements', label:'Achievements', formula:'=ACHIEVEMENTS!RANK',
+    html: CONTENT.achievements.map((a,i)=>row(`<div class="ach-cell"><div class="cellref">A${i+1}</div><div class="txt" contenteditable="false">${a}</div></div>`)).join('')
+  },
+  {
+    id:'skills', label:'Skills', formula:'=SKILLS!STACK',
+    html: CONTENT.skills.map(s=>row(cell(`
+      <div class="skill-block">
+        <h3>${s.cat}</h3>
+        <div class="tagrow">${s.items.map(i=>`<span class="tag">${i}</span>`).join('')}</div>
+      </div>
+    `))).join('')
+  }
+];
+
+$sheets.innerHTML = SHEETS.map((s,i)=>`<div class="sheet ${i===0?'active':''}" data-id="${s.id}">${s.html}</div>`).join('');
+$tabbar.innerHTML = SHEETS.map((s,i)=>`<button class="tab ${i===0?'active':''}" data-id="${s.id}">${s.label}</button>`).join('')
+  + `<button class="tab-add" id="addTab" title="Get PDF">+</button>`;
+
+// Build a plausible row-number gutter tied to the tallest sheet
+function refreshGutter(){
+  const active = document.querySelector('.sheet.active');
+  const h = active ? active.scrollHeight : 600;
+  const n = Math.max(14, Math.ceil(h/34));
+  let out = '';
+  for(let i=1;i<=n;i++) out += `<div style="height:34px;line-height:34px;padding-top:0;">${i}</div>`;
+  $rowgutter.innerHTML = out;
+}
+
+function activate(id){
+  document.querySelectorAll('.sheet').forEach(s=>s.classList.toggle('active', s.dataset.id===id));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.id===id));
+  const s = SHEETS.find(s=>s.id===id);
+  $formulaText.textContent = s.formula;
+  $cellRef.textContent = 'A1';
+  document.querySelector('.viewport').scrollTop = 0;
+  refreshGutter();
+}
+
+$tabbar.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.tab');
+  if(btn){ activate(btn.dataset.id); return; }
+  if(e.target.id === 'addTab'){
+    const link = document.createElement('a');
+    link.href = CONTENT.resumePdf; link.download = ''; link.click();
+  }
+});
+
+// Ribbon tab clicks (decorative, still switch style)
+document.getElementById('ribbonTabs').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  document.querySelectorAll('#ribbonTabs button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+});
+
+// Cell-reference feedback on tap, for flavor
+$sheets.addEventListener('click', (e)=>{
+  const row = e.target.closest('.row');
+  if(!row) return;
+  const rows = Array.from(document.querySelector('.sheet.active').querySelectorAll('.row'));
+  const idx = rows.indexOf(row);
+  $cellRef.textContent = 'A' + (idx>=0?idx+1:1);
+});
+
+// Edit mode toggle
+const $app = document.getElementById('app');
+const $editToggle = document.getElementById('editToggle');
+let editing = false;
+$editToggle.addEventListener('click', ()=>{
+  editing = !editing;
+  $app.classList.toggle('editing', editing);
+  $editToggle.classList.toggle('on', editing);
+  document.querySelectorAll('.summary-cell, .name, .role, .ach-cell .txt, .entry-title, .entry-org, li').forEach(el=>{
+    el.setAttribute('contenteditable', editing ? 'true' : 'false');
+  });
+});
+
+refreshGutter();
+window.addEventListener('resize', refreshGutter);
+</script>
+</body>
+</html>
